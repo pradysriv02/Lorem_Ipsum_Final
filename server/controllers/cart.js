@@ -4,14 +4,19 @@ import Item from '../models/item.js';
 
 export const getCartItems = async(req,res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         
         const user = await User.findById(id);
         const items = await Promise.all(
             user.cart.map(async(item) => {
-              const details=await Item.findById(item.itemId)
+              const { _id, itemId, image, name, rating, price }=await Item.findById(item.itemId)
               return {
-                ...details._doc,
+                _id,
+                itemId,
+                name,
+                rating,
+                price,
+                image,
                 qty:item.qty
               }
             })
@@ -26,14 +31,15 @@ export const addItem = async(req,res) => {
     try {
         const { id, itemId } = req.body;
         const user = await User.findById(id);
-        const extractItem=user.cart.filter((item)=>item.itemId===itemId);
+        console.log(user)
+        const extractItem=user?.cart?.filter((item)=>item.itemId===itemId);
         if(extractItem.length===0){
-          user.cart.push({
+          user?.cart?.push({
             itemId,
             qty:1
           })
         }else{
-          const restCart=user.cart.filter((item)=>item.itemId!=itemId);
+          const restCart=user?.cart?.filter((item)=>item.itemId!=itemId);
           const changeQty = {
             ...extractItem[0],
             qty:extractItem[0].qty+1
@@ -60,8 +66,8 @@ export const removeItem = async(req,res) => {
             user.cart.map((id) => User.findById(id))
           );
           const formattedItems = items.map(
-            ({ _id, itemName, itemdId, price, rating }) => {
-              return { _id, itemName, itemdId, price, rating };
+            ({ _id, name, image,category, price, rating,veg }) => {
+              return { _id, name, image,category, price, rating,veg };
             }
           );
           res.status(200).json({message:"Item Removed from Cart"});

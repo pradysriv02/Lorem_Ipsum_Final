@@ -2,21 +2,32 @@ import mongoose, { Mongoose } from "mongoose";
 
 const itemSchema = new mongoose.Schema(
     {
-        itemName:{
+        name:{
             type:String,
             required:true,
         },
         itemId:{
+            type:Number,
+        },
+        image:{
+            type:String,
+            default:""
+        },
+        category:{
             type:String,
             required:true,
-            unique:true
+        },
+        rating:{
+            type:Number,
+            required:true
         },
         price:{
             type:Number,
             required:true
         },
-        rating:{
-            type:Number,
+        veg:{
+            type:Boolean,
+            default:true,
             required:true
         }
     },
