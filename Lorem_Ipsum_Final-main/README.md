@@ -1,6 +1,6 @@
 # Lorem_Ipsum_Final
 
-- ### Deployed Website Link : https://farm-to-table-final.netlify.app/
+
 
 ✅ Collabrotive Project For GWOC Organized By GDSC NIT Surat.
 
