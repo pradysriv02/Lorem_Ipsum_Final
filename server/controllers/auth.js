@@ -32,7 +32,7 @@ export const register = async(req,res) => {
     }
 };
 
-/*logging In*/
+
 
 export const login = async(req,res) =>{
     try {
